@@ -17,8 +17,6 @@ export const Books: React.FC<iProps> = ({ book }) => {
                 source={{
                     uri: book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : 'https://via.placeholder.com/300?text=No+Cover+Available'
                 }}>
-                {/* <Text style={{ marginBottom: 10, backgroundColor: "gray", color: "white" }}>{book.title_suggest}
-                </Text> */}
             </Card.Image>
             <Button
                 icon={<Icon name='code' color='#ffffff' />}

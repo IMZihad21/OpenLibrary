@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "OpenLibrary",
+    "name": "Open Library",
     "slug": "OpenLibrary",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -27,6 +27,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Seach and Find books from open library"
   }
 }
