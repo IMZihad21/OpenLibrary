@@ -4,10 +4,11 @@ import { Button, Card, Icon } from 'react-native-elements'
 import { iBooks } from '../interfaces/iBooks'
 
 interface iProps {
-    book: iBooks
+    book: iBooks;
+    navigation: any
 }
 
-export const Books: React.FC<iProps> = ({ book }) => {
+export const Books: React.FC<iProps> = ({ book, navigation }) => {
     return (
         <Card wrapperStyle={{ minWidth: "100%" }}>
             <Card.Title>{book.title}</Card.Title>
@@ -20,7 +21,14 @@ export const Books: React.FC<iProps> = ({ book }) => {
             </Card.Image>
             <Button
                 icon={<Icon name='code' color='#ffffff' />}
-                title='READ NOW' />
+                title='More Details'
+                onPress={() => {
+                    navigation.navigate('BookDetails', {
+                        name: book.title,
+                        book
+                    });
+                }}
+            />
         </Card>
     )
 }
