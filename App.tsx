@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button, Header, SearchBar } from 'react-native-elements';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -13,6 +13,7 @@ export default function App() {
   const [ searchText, setSearchText ] = useState<string>('')
 
   const handleSearch = async () => {
+    setBooks(undefined);
     setLoading(true);
     const response = await fetch(`http://openlibrary.org/search.json?q=${searchText}`);
     const fetchedBooks = await response.json();
@@ -49,13 +50,16 @@ export default function App() {
             title=" Search"
           />
         </View>
-        <ScrollView contentContainerStyle={{ width: "100%", alignItems: "center", paddingTop: 30 }}>
-          {
-            books?.numFound ?
-              books.docs.map(book => <Books key={Math.random()} book={book} />) :
-              <Text style={{ width: "100%", paddingHorizontal: 50 }}>No books Found!</Text>
-          }
-        </ScrollView>
+        {
+          books?.numFound ?
+            <FlatList
+              style={styles.resultContainer}
+              data={books.docs}
+              renderItem={({ item }) => <Books book={item} />}
+              keyExtractor={(item, index) => index.toString()}
+            /> :
+            <Text style={{ width: "100%", paddingHorizontal: 50 }}>No books Found!</Text>
+        }
       </View>
     </SafeAreaProvider>
   );
@@ -72,6 +76,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 20,
     marginHorizontal: 5
+  },
+  resultContainer: {
+    marginBottom: 150,
+    marginTop: 20
   },
   container: {
     alignItems: "center",
